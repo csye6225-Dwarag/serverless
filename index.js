@@ -20,7 +20,7 @@ exports.handler = (event, context, callback) => {
         
         var to_address = JSON.parse(event.Records[0].Sns.Message).EmailAddress;
         var accestoken = JSON.parse(event.Records[0].Sns.Message).AccessToken;
-
+        var encodedmail = encodeURIComponent(to_address);
 
         return new Promise(function (resolve, reject) {
             var eParams = {
@@ -37,8 +37,8 @@ exports.handler = (event, context, callback) => {
                                 '</head><body>' +
                                 'This is the link to verify your account this link is valid for five minutes.' +
                                 '<br><br>' +
-                                "<a href=\"http://" + "prod.dwarak.me" + "/v1/verifyUserEmail?email=" + to_address + "&token=" + accestoken + "\">" +
-                                "http://" + "prod.dwarak.me" + "/v1/verifyUserEmail?email=" + to_address + "&token=" + accestoken + "</a>"
+                                "<a href=\"http://" + "prod.dwarak.me" + "/v1/verifyUserEmail?email=" + encodedmail + "&token=" + accestoken + "\">" +
+                                "http://" + "prod.dwarak.me" + "/v1/verifyUserEmail?email=" + encodedmail + "&token=" + accestoken + "</a>"
                                 +'</body></html>'
                         }
                     },
